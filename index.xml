@@ -6,27 +6,18 @@
     <description>Recent content on Jblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Apr 2020 17:57:22 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 21:00:51 +0900</lastBuildDate>
     
 	<atom:link href="https://ironhopper.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Test2</title>
-      <link>https://ironhopper.github.io/post/test2/</link>
-      <pubDate>Mon, 06 Apr 2020 17:57:22 +0900</pubDate>
+      <title></title>
+      <link>https://ironhopper.github.io/</link>
+      <pubDate>Mon, 06 Apr 2020 21:00:51 +0900</pubDate>
       
-      <guid>https://ironhopper.github.io/post/test2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Test1</title>
-      <link>https://ironhopper.github.io/post/test1/</link>
-      <pubDate>Mon, 06 Apr 2020 16:36:16 +0900</pubDate>
-      
-      <guid>https://ironhopper.github.io/post/test1/</guid>
-      <description></description>
+      <guid>https://ironhopper.github.io/</guid>
+      <description>indexing</description>
     </item>
     
   </channel>
