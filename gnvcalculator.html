@@ -102,7 +102,7 @@ function mval(){
 		rei = i * (mi/6);
 		console.log('반납 (거주학생) %d 개월 거주시 : '+rei,mi);
 		const result2 =  document.getElementById('result2');
-		result2.value = i;
+		result2.value = rei;
 	}
 	
 }
@@ -116,7 +116,7 @@ function acval(){
 	rej1 = (an+bn+abjn)*(6-mjv) + cn+cjn;
 	console.log("1학기 반납 (총무학생) %d 개월 거주시 : "+rej1,mjv);
 	const result3 =  document.getElementById('result3');
-	result3.value = i;
+	result3.value = rej1;
 }
 function bcval(){
 	const mj = document.getElementById("mj");
@@ -127,7 +127,7 @@ function bcval(){
 	rej2 = (an+bn+abjn)*(6-mjv);
 	console.log("2학기 반납 (총무학생) %d 개월 거주. 정화조청소 끝났을 경우. : "+rej2,mjv);
 	const result3 =  document.getElementById('result3');
-	result3.value = i;
+	result3.value = rej2;
 
 }
 
