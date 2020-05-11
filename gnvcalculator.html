@@ -25,6 +25,13 @@ const b = document.getElementById('b').value;
 const c = document.getElementById('c').value;
 const cj = document.getElementById('cj').value;
 const abj = document.getElementById('abj').value;
+	
+const an = Number(a);
+const bn = Number(b);
+const cn = Number(c);
+const cjn = Number(cj);
+const abjn = Number(abj);
+
 // 기본값
 // const a = 4000; // 한달 기본 요금
 // const b = 20000; // 청소업체 대행 요금
@@ -49,8 +56,8 @@ function nval(){
   console.log("학기별 요금 : "+i); // 학기별 요금
 	// const array = iv.split(',').map(Number);
 	// alert(array);
-  const text =  document.getElementById('text');
- 	text.value = i;
+  const result1 =  document.getElementById('result1');
+ 	result1.value = i;
   
 }
 
