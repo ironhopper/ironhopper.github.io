@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>공릉빌 공동요금 계산기</title>
+</head>
+<body>
+
+<h3>학기별 요금 계산</h3>
+<input type="text" id="n"></input>
+<button id='npay'>요금 계산</button>
+<strong>[ 현재 인원수를 적어주세요. ]</strong>
+<h3> result </h3>
+<textarea id='result1'></textarea>
+
+<hr>
+<hr><h3>기본 설정값</h3>
+<p style="display:inline;" >한달 기본 요금</p><input type="text" id="a" value="4000"></input>
+<p style="display:inline;" >청소업체 대행 요금</p><input type="text" id="b" value="20000"></input>
+<p style="display:inline;">정화조 청소 요금</p><input type="text"  id="c" value="100000"></input>
+<p style="display:inline;" >청화조 청소 요금 수고비(총무 학생)</p><input type="text" id="cj" value="10000"></input>
+<p style="display:inline;" >총무 학생 수고비</p><input type="text" id="abj" value="10000"></input>
+
+<script>
+const a = document.getElementById('a').value;
+const b = document.getElementById('b').value;
+const c = document.getElementById('c').value;
+const cj = document.getElementById('cj').value;
+const abj = document.getElementById('abj').value;
+// 기본값
+// const a = 4000; // 한달 기본 요금
+// const b = 20000; // 청소업체 대행 요금
+// const c = 100000; // 정화조 청소 요금 (변동 가능)
+// const cj = 10000; // 정화조 청소 요금 수고비 (협의 가능)
+// const abj = 10000; // 총무 학생 수고비 (협의 가능)
+
+let sum; // 전체 요금 
+let rei, rej1, rej2; // 반납 요금 : i-> 거주 학생, j-> 총무 학생 \\ 1 은 1학기, 2는 2학기
+let i; // 인당 1학기, 2학기 요금
+const n = document.getElementById('n').value; // 전체 학생 수
+const npay = document.getElementById('npay');
+npay.addEventListener('click', nval);
+
+function nval(){
+	const n = document.getElementById("n");
+	let nv = n.value;
+  
+  // 한학기 요금 계산
+  sum = (a+b+abj)*12 + c + cj;
+  i = sum/nv/2; // 1년치 요금 / 2
+  console.log("학기별 요금 : "+i); // 학기별 요금
+	// const array = iv.split(',').map(Number);
+	// alert(array);
+  const text =  document.getElementById('text');
+ 	text.value = i;
+  
+}
+
+let mi,mj1,mj2; // 거주 개월수 
+
+// 요금 정산 (거주 학생의 경우)
+// ( 개강일 기준으로 거주한 개월수를 계산합니다. )
+mi = 3; // ex) 3개월 거주
+rei = i * (mi/6);
+console.log('반납 (거주학생) %d 개월 거주시 : '+rei,mi);
+
+// 요금 정산 (총무 학생의 경우)
+// 1학기 (정화조 청소 전)
+mj1 = 4; // ex) 4개월 거주
+rej1 = (a+b+abj)*(6-mj1) + c+cj;
+console.log("1학기 반납 (총무학생) %d 개월 거주시 : "+rej1,mj1);
+
+// 2학기 (정화조 청소 끝났을 경우)
+mj2 = 3; // ex) 4개월 거주
+rej2 = (a+b+abj)*(6-mj2);
+console.log("2학기 반납 (총무학생) %d 개월 거주. 정화조청소 끝났을 경우. : "+rej2,mj2);
+</script>
+</body>
+</html>
