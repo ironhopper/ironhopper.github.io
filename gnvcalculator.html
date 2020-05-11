@@ -26,12 +26,6 @@ const c = document.getElementById('c').value;
 const cj = document.getElementById('cj').value;
 const abj = document.getElementById('abj').value;
 	
-const an = Number(a);
-const bn = Number(b);
-const cn = Number(c);
-const cjn = Number(cj);
-const abjn = Number(abj);
-
 // 기본값
 // const a = 4000; // 한달 기본 요금
 // const b = 20000; // 청소업체 대행 요금
@@ -42,16 +36,23 @@ const abjn = Number(abj);
 let sum; // 전체 요금 
 let rei, rej1, rej2; // 반납 요금 : i-> 거주 학생, j-> 총무 학생 \\ 1 은 1학기, 2는 2학기
 let i; // 인당 1학기, 2학기 요금
-const n = document.getElementById('n').value; // 전체 학생 수
+// const n = document.getElementById('n').value; // 전체 학생 수
 const npay = document.getElementById('npay');
+
+const an = Number(a);
+const bn = Number(b);
+const cn = Number(c);
+const cjn = Number(cj);
+const abjn = Number(abj);
+	
 npay.addEventListener('click', nval);
 
 function nval(){
 	const n = document.getElementById("n");
-	let nv = n.value;
+	let nv = Number(n.value);
   
   // 한학기 요금 계산
-  sum = (a+b+abj)*12 + c + cj;
+  sum = (an+bn+abjn)*12 + cn + cjn;
   i = sum/nv/2; // 1년치 요금 / 2
   console.log("학기별 요금 : "+i); // 학기별 요금
 	// const array = iv.split(',').map(Number);
