@@ -3,15 +3,33 @@
 <title>공릉빌 공동요금 계산기</title>
 </head>
 <body>
-
+<h2>학기별 요금은 개강날짜를 기준으로 카운트 합니다.</h2>
+	
 <h3>학기별 요금 계산</h3>
 <input type="text" id="n"></input>
 <button id='npay'>요금 계산</button>
 <strong>[ 현재 인원수를 적어주세요. ]</strong>
 <h3> result </h3>
 <textarea id='result1'></textarea>
-
+<br>
 <hr>
+<h3>요금 정산 (거주 학생의 경우)</h3>
+<input type="text" id="mi"></input>
+<button id='mpay'>요금 계산</button>
+<strong>[ 현재 인원수를 적어주세요. ]</strong>
+<h3> result </h3>
+<textarea id='result2'></textarea>
+
+<br><hr>
+<h3>요금 정산 (총무 학생의 경우)</h3>
+<input type="text" id="mj"></input>
+<button id='bc'>정화조 청소 전</button>
+<button id='ac'>정화조 청소 후</button>
+<strong>[ 현재까지 거주한 개월수를 적어주세요.(학기별로) (예: 1학기 요금은 3월부터 카운트, 2학기 요금은 9월부터 카운트 합니다.) ]</strong>
+<h3> result </h3>
+<textarea id='result3'></textarea>
+
+<br>
 <hr><h3>기본 설정값</h3>
 <p style="display:inline;" >한달 기본 요금</p><input type="text" id="a" value="4000"></input>
 <p style="display:inline;" >청소업체 대행 요금</p><input type="text" id="b" value="20000"></input>
@@ -38,6 +56,14 @@ let rei, rej1, rej2; // 반납 요금 : i-> 거주 학생, j-> 총무 학생 \\ 
 let i; // 인당 1학기, 2학기 요금
 // const n = document.getElementById('n').value; // 전체 학생 수
 const npay = document.getElementById('npay');
+const mpay = document.getElementById('mpay');
+const bc = document.getElementById('bc');
+const ac = document.getElementById('ac');
+	
+npay.addEventListener('click', nval);
+mpay.addEventListener('click', mval);
+bc.addEventListener('click', bcval);
+ac.addEventListener('click', acval);
 
 const an = Number(a);
 const bn = Number(b);
@@ -45,41 +71,67 @@ const cn = Number(c);
 const cjn = Number(cj);
 const abjn = Number(abj);
 	
-npay.addEventListener('click', nval);
 
 function nval(){
 	const n = document.getElementById("n");
 	let nv = Number(n.value);
   
-  // 한학기 요금 계산
-  sum = (an+bn+abjn)*12 + cn + cjn;
-  i = sum/nv/2; // 1년치 요금 / 2
-  console.log("학기별 요금 : "+i); // 학기별 요금
-	// const array = iv.split(',').map(Number);
-	// alert(array);
-  const result1 =  document.getElementById('result1');
- 	result1.value = i;
+	  // 한학기 요금 계산
+	  sum = (an+bn+abjn)*12 + cn + cjn;
+	  i = sum/nv/2; // 1년치 요금 / 2
+	  console.log("학기별 요금 : "+i); // 학기별 요금
+		// const array = iv.split(',').map(Number);
+		// alert(array);
+	  const result1 =  document.getElementById('result1');
+		result1.value = i;
   
 }
+	
+// let mi,mj1,mj2; // 거주 개월수 
 
-let mi,mj1,mj2; // 거주 개월수 
+function mval(){
+	const mi = document.getElementById("mi");
+	let miv = Number(mi.value);
+	// 
+	// ( 개강일 기준으로 거주한 개월수를 계산합니다. )
+	// mi = 3; // ex) 3개월 거주
+	if(i == null){
+		alert("공동 요금 계산을 먼저 해주세요!");
+	}
+	else{
+		rei = i * (mi/6);
+		console.log('반납 (거주학생) %d 개월 거주시 : '+rei,mi);
+		const result2 =  document.getElementById('result2');
+		result2.value = i;
+	}
+	
+}
 
-// 요금 정산 (거주 학생의 경우)
-// ( 개강일 기준으로 거주한 개월수를 계산합니다. )
-mi = 3; // ex) 3개월 거주
-rei = i * (mi/6);
-console.log('반납 (거주학생) %d 개월 거주시 : '+rei,mi);
+function acval(){
+	const mj = document.getElementById("mj");
+	let mjv = Number(mj.value);
+	// 
+	// 1학기 (정화조 청소 전)
+	// mj1 = 4; // ex) 4개월 거주
+	rej1 = (an+bn+abjn)*(6-mjv) + cn+cjn;
+	console.log("1학기 반납 (총무학생) %d 개월 거주시 : "+rej1,mjv);
+	const result3 =  document.getElementById('result3');
+	result3.value = i;
+}
+function bcval(){
+	const mj = document.getElementById("mj");
+	let mjv = Number(mj.value);
+	// 2학기 (정화조 청소 끝났을 경우)
+	
+	// mj2 = 3; // ex) 4개월 거주
+	rej2 = (an+bn+abjn)*(6-mjv);
+	console.log("2학기 반납 (총무학생) %d 개월 거주. 정화조청소 끝났을 경우. : "+rej2,mjv);
+	const result3 =  document.getElementById('result3');
+	result3.value = i;
 
-// 요금 정산 (총무 학생의 경우)
-// 1학기 (정화조 청소 전)
-mj1 = 4; // ex) 4개월 거주
-rej1 = (a+b+abj)*(6-mj1) + c+cj;
-console.log("1학기 반납 (총무학생) %d 개월 거주시 : "+rej1,mj1);
+}
 
-// 2학기 (정화조 청소 끝났을 경우)
-mj2 = 3; // ex) 4개월 거주
-rej2 = (a+b+abj)*(6-mj2);
-console.log("2학기 반납 (총무학생) %d 개월 거주. 정화조청소 끝났을 경우. : "+rej2,mj2);
+
 </script>
 </body>
 </html>
