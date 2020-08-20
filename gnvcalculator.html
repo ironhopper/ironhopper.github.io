@@ -83,6 +83,7 @@ const cn = Number(c);
 const cjn = Number(cj);
 const abjn = Number(abj);
 	
+// Math.floor() -> 반올림 
 
 function nval(){
 	const n = document.getElementById("n");
@@ -91,7 +92,7 @@ function nval(){
 	  // 한학기 요금 계산
 	  sum = (an+bn+abjn)*12 + cn + cjn;
 	  i = sum/nv/2; // 1년치 요금 / 2
-	  console.log("학기별 요금 : "+i); // 학기별 요금
+	  console.log("학기별 요금 : "+ i ); // 학기별 요금
 		// const array = iv.split(',').map(Number);
 		// alert(array);
 	  const result1 =  document.getElementById('result1');
