@@ -4,8 +4,8 @@
 <meta name="viewport" content="width=device-width">
 
 </head>
-<body style="padding:.6em; font-size: x-large;">
-<h1 id=rn>엔터 누르면 시작</h1><br>
+<body style="padding:.6em; font-size: large;">
+<h1 id=rn>엔터 누르면 시작</h1>
 <input id='myBtn' type="button" value="다음 세트">
 <input id='set' type="button" style="background-color: white;">
 <input id='back' type="button" style="background-color: grey;color:beige" value="이전 세트">
@@ -54,13 +54,12 @@
         console.log('('+rn1+','+rn2+')');
         console.log('['+deck4[rn1][rn2]+']');
         console.log('count:',j);
-
+        if(j==0 || j== 53){
+            // document.getElementById('rn').style.color = 'black';
+            document.getElementById('rn').style.backgroundColor = 'white';
+        }
         if(keyflag == 13){
             if(j<54){
-                if(j==0 || j== 53){
-                    // document.getElementById('rn').style.color = 'black';
-                    document.getElementById('rn').style.backgroundColor = 'white';
-                }
                 if(deck4[rn1][rn2] == '\u2800'){
                     rnpick(keyflag);
                 } else{
