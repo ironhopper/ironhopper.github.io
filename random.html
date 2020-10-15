@@ -82,7 +82,7 @@
         console.log('('+rn1+','+rn2+')');
         console.log('['+deck4[rn1][rn2]+']');
         console.log('count:',j);
-        if(j==0 || j== 53){
+        if(j==0 || j== 54){
             // document.getElementById('rn').style.color = 'black';
             document.getElementById('rn').style.backgroundColor = 'white';
         }
@@ -132,21 +132,25 @@
                 document.getElementById('rn').style.backgroundColor = 'black';
             }
         }
-
         if(keyflag == 82){
             console.log('82');
             if(j>0){
                 j--;
                 deck4[temp[j][0]][temp[j][1]] = temp[j][2];
                 pop = emp.pop();
+                console.log('pop1:',pop);
+                if(emp[j-1]==undefined){
+                    document.getElementById('rn').innerHTML = '\u2800'; // 공백
+                }else{
+                    document.getElementById('rn').innerHTML = emp[j-1];
+                }
+                console.log("empty:",emp[j-1]);
+                
                 // console.log('temp1:',temp[j][0]);
                 pop = temp.pop();
                 // console.log('temp2:',temp[j][0]);
-                
-                console.log('pop:',pop);
+                console.log('pop2:',pop);
                 // console.log('temp:',temp[j-1][0],temp[j-1][1],temp[j-1][2]); 
-
-
                 document.getElementById('set').innerText= ("현재 세트:"+j);
                 // document.getElementById('set').setAttribute('value',"현재 세트:"+j)
                 document.getElementById('rnorder').innerHTML =  String('나왔던 순서:'+'<br>'+emp).replaceAll(',',' ');
@@ -158,7 +162,6 @@
                 // console.log('color:',color);
             }
         }
-        
         document.getElementById('rest1').innerHTML = String('\u2660 '+deck4[0]).replaceAll(',',' ');
         document.getElementById('rest2').innerHTML = String('\u25C6 '+deck4[1]).replaceAll(',',' ');
         document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]).replaceAll(',',' ');
@@ -171,7 +174,7 @@
     var btn1 = document.getElementById('myBtn').addEventListener("click",(e)=>{
         // e.preventDefault();
         window.addEventListener("dblclick", function(event) {
-        // alert("Double-click disabled!");  
+        // alert("Double-click disabled!");  // 이와중에 하나만 실행됐다는건 캐싱된 데이터를 쓴다는 소리일까 사파리 애플에서..음.. 
         event.preventDefault();  
         event.stopPropagation(); 
       },  true //capturing phase!!
@@ -234,10 +237,10 @@
 
     document.getElementById('rest1').innerText = String('\u2660 '+deck4[0]).replaceAll(',',' ');
     document.getElementById('rest2').innerText = String('\u25C6 '+deck4[1]).replaceAll(',',' ');
+    document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]).replaceAll(',',' ');   
+    document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]).replaceAll(',',' ');  
     document.getElementById('rest2').style.color = 'red';
-    document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]).replaceAll(',',' ');    
-    document.getElementById('rest3').style.color = 'red';
-    document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]).replaceAll(',',' ');   
+    document.getElementById('rest3').style.color = 'red'; 
     document.getElementById('rnorder').innerHTML = '나왔던 순서:'+'<br>'+emp;     
 </script>
 </body>
