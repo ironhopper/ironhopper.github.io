@@ -171,7 +171,7 @@
     var btn1 = document.getElementById('myBtn').addEventListener("click",(e)=>{
         // e.preventDefault();
         window.addEventListener("dblclick", function(event) {
-        alert("Double-click disabled!");  
+        // alert("Double-click disabled!");  
         event.preventDefault();  
         event.stopPropagation(); 
       },  true //capturing phase!!
@@ -182,7 +182,7 @@
     })
     var btn2 = document.getElementById('back').addEventListener("click",(e)=>{
         window.addEventListener("dblclick", function(event) {
-        alert("Double-click disabled!");  
+        // alert("Double-click disabled!");  
         event.preventDefault();  
         event.stopPropagation(); 
       },  true //capturing phase!!
@@ -193,14 +193,14 @@
         rnpick(keyflag);
     })
     window.addEventListener("dblclick", function(event) {
-        alert("Double-click disabled!");  
+        // alert("Double-click disabled!");  
         event.preventDefault();  
         event.stopPropagation(); 
       },  true //capturing phase!!
     );
     document.getElementById('body').addEventListener("dblclick",(ev)=>
         {
-            alert("Double-click disabled!");  
+            // alert("Double-click disabled!");  
             ev.preventDefault();  
             ev.stopPropagation(); 
         },  true //capturing phase!!
@@ -208,7 +208,7 @@
     // Execute a function when the user releases a key on the keyboard
     window.addEventListener("keyup", function(event) {
         window.addEventListener("dblclick", function(e) {
-        alert("Double-click disabled!");  
+        // alert("Double-click disabled!");  
         e.preventDefault();  
         e.stopPropagation(); 
       },  true //capturing phase!!
