@@ -1,6 +1,8 @@
 <html>
 <head>
 <title>Random Card Picking</title>
+<meta name="viewport" content="width=device-width">
+
 </head>
 <body style="padding:.6em; font-size: x-large;">
 <h1 id=rn>엔터 누르면 시작</h1><br>
@@ -137,13 +139,13 @@
     // Get the input field
     // var input = document.getElementById("myInput");
     var keyflag;
-    var btn1 = document.getElementById('myBtn').addEventListener("touchstart",(e)=>{
+    var btn1 = document.getElementById('myBtn').addEventListener("click",(e)=>{
         // e.preventDefault();
         // e.error();
         keyflag = 13;
         rnpick(keyflag);
     })
-    var btn2 = document.getElementById('back').addEventListener("touchstart",(e)=>{
+    var btn2 = document.getElementById('back').addEventListener("click",(e)=>{
         // e.preventDefault();
         // e.error();
         keyflag = 82;
@@ -158,11 +160,13 @@
             // Cancel the default action, if needed
             event.preventDefault();
             // Trigger the button element with a click
-            document.getElementById("myBtn").click(rnpick(event.keyCode));
+            // document.getElementById("myBtn").click(
+            rnpick(event.keyCode);
         }
         if(event.keyCode == 82){ // 'r'
             keyflag = 82;
-            document.getElementById("myBtn").click(rnpick(keyflag));
+            // document.getElementById("myBtn").click(
+            rnpick(keyflag);
 
         }
     });
