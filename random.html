@@ -1,21 +1,48 @@
 <html>
 <head>
-<title>Random Card Picking</title>
-<meta name="viewport" content="width=device-width">
+    <title>Random Card Picking</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 </head>
-<body style="padding:.6em; font-size: large;">
-<h1 id=rn>엔터 누르면 시작</h1>
-<input id='myBtn' type="button" value="다음 세트">
-<input id='set' type="button" style="background-color: white;">
-<input id='back' type="button" style="background-color: grey;color:beige" value="이전 세트">
+<body style="padding:.6em; font-size: large; font-family: 'Nanum Myeongjo', serif;">
+    
+    <!-- <button class="mdc-button foo-button">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button--outlined">Button</span>
+    </button>
+    	
+      <button class="mdc-button--raised ">
+        <span class="mdc-button__label">Contained Button</span>
+      </button> -->
+    <h1 id=rn >시작</h1><p>키보드:Enter(다음),R(이전)</p>
 
-<h3 id='rest1'></h3>
-<h3 id='rest2'></h3>
-<h3 id='rest3'></h3>
-<h3 id='rest4'></h3>
-<hr>
-<h2 id=rnorder style="overflow-wrap: break-word; display: inline;"></h2><br>
+    <button id='myBtn' class="mdc-button  mdc-button--raised">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">    <strong>  다음 세트</strong></span>
+    </button>
+    
+    <button  id='set' class="mdc-button mdc-button--outlined mdc-theme--on-surface">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label"></span>
+      </button>
+      <button id='back' class="mdc-button  mdc-button--raised mdc-theme--secondary-bg	">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__label">이전 세트</span>
+    </button>
+    <!-- <input  type="button" value="다음 세트"> -->
+    <!-- <input  type="button" style="background-color: white;"> -->
+    <!-- <input  type="button" style="background-color: grey;color:beige" value="이전 세트"> -->
+    <h3 id='rest1'></h3>
+    <h3 id='rest2'></h3>
+    <h3 id='rest3'></h3>
+    <h3 id='rest4'></h3>
+    <hr>
+    <h2 id=rnorder style="overflow-wrap: break-word; display: inline;"></h2><br>
 
 <script>
     var rndoc = document.getElementById('rn');
@@ -33,12 +60,13 @@
     var deck4 = emp.concat([deck],[deck1],[deckj],[deckj1])
     console.log(deck4);
     var j =0;var k=0;var color = false;
+    document.getElementById('set').innerText= ("현재 세트:"+j);
     function shape(rn1,rn2){
         console.log('rn1:',rn1);
        
         return rn2 == 13 ? '' // 부호 안붙임. 공백문자도 넣는거 아님.
          : rn1 == 0 ? '\u2660' //spade
-         : rn1 == 1 ? '\u2666' // dia 25C6?
+         : rn1 == 1 ? '\u25C6' // dia 25C6?
          : rn1 == 2 ? '\u2665' // heart
          :'\u2663'; // club
     }
@@ -94,7 +122,8 @@
                     // console.log('why?1');
                     deck4[rn1][rn2] = '\u2800';
                     // console.log('why?2');
-                    document.getElementById('set').setAttribute('value',"현재 세트:"+j)
+                    // 'value',
+                    document.getElementById('set').innerText= ("현재 세트:"+j);
                     document.getElementById('rnorder').innerHTML =  String('나왔던 순서:'+'<br>'+emp).replaceAll(',',' ');
                 }
             }else{
@@ -118,7 +147,8 @@
                 // console.log('temp:',temp[j-1][0],temp[j-1][1],temp[j-1][2]); 
 
 
-                document.getElementById('set').setAttribute('value',"현재 세트:"+j)
+                document.getElementById('set').innerText= ("현재 세트:"+j);
+                // document.getElementById('set').setAttribute('value',"현재 세트:"+j)
                 document.getElementById('rnorder').innerHTML =  String('나왔던 순서:'+'<br>'+emp).replaceAll(',',' ');
             }else{
                 document.getElementById('rn').innerText = '처음';
@@ -129,10 +159,10 @@
             }
         }
         
-        document.getElementById('rest1').innerHTML = String('\u2660 '+deck4[0]+'\n').replaceAll(',',' ');
-        document.getElementById('rest2').innerHTML = String('\u2666 '+deck4[1]+'\n').replaceAll(',',' ');
-        document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]+'\n').replaceAll(',',' ');
-        document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]+'\n').replaceAll(',',' ');        
+        document.getElementById('rest1').innerHTML = String('\u2660 '+deck4[0]).replaceAll(',',' ');
+        document.getElementById('rest2').innerHTML = String('\u25C6 '+deck4[1]).replaceAll(',',' ');
+        document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]).replaceAll(',',' ');
+        document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]).replaceAll(',',' ');        
         document.getElementById('set').focus();
     }
     // Get the input field
@@ -171,12 +201,12 @@
     });
 
 
-    document.getElementById('rest1').innerText = String('\u2660 '+deck4[0]+'\n').replaceAll(',',' ');
-    document.getElementById('rest2').innerText = String('\u2666 '+deck4[1]+'\n').replaceAll(',',' ');
+    document.getElementById('rest1').innerText = String('\u2660 '+deck4[0]).replaceAll(',',' ');
+    document.getElementById('rest2').innerText = String('\u25C6 '+deck4[1]).replaceAll(',',' ');
     document.getElementById('rest2').style.color = 'red';
-    document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]+'\n').replaceAll(',',' ');    
+    document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]).replaceAll(',',' ');    
     document.getElementById('rest3').style.color = 'red';
-    document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]+'\n').replaceAll(',',' ');   
+    document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]).replaceAll(',',' ');   
     document.getElementById('rnorder').innerHTML = '나왔던 순서:'+'<br>'+emp;     
 </script>
 </body>
