@@ -170,11 +170,17 @@
     var keyflag;
     var btn1 = document.getElementById('myBtn').addEventListener("click",(e)=>{
         // e.preventDefault();
+        window.addEventListener("dblclick", function(event) {
+            event.preventDefault();
+        });
         // e.error();
         keyflag = 13;
         rnpick(keyflag);
     })
     var btn2 = document.getElementById('back').addEventListener("click",(e)=>{
+        window.addEventListener("dblclick", function(event) {
+            event.preventDefault();
+        });
         // e.preventDefault();
         // e.error();
         keyflag = 82;
