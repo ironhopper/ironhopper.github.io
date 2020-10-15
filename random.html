@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 </head>
-<body style="padding:.6em; font-size: large; font-family: 'Nanum Myeongjo', serif;">
+<body id='body'style="padding:.6em; font-size: large; font-family: 'Nanum Myeongjo', serif;">
     
     <!-- <button class="mdc-button foo-button">
         <div class="mdc-button__ripple"></div>
@@ -198,12 +198,19 @@
         event.stopPropagation(); 
       },  true //capturing phase!!
     );
+    document.getElementById('body').addEventListener("dblclick",(ev)=>
+        {
+            alert("Double-click disabled!");  
+            ev.preventDefault();  
+            ev.stopPropagation(); 
+        },  true //capturing phase!!
+    );
     // Execute a function when the user releases a key on the keyboard
     window.addEventListener("keyup", function(event) {
-        window.addEventListener("dblclick", function(event) {
+        window.addEventListener("dblclick", function(e) {
         alert("Double-click disabled!");  
-        event.preventDefault();  
-        event.stopPropagation(); 
+        e.preventDefault();  
+        e.stopPropagation(); 
       },  true //capturing phase!!
     );
     // Number 13 is the "Enter" key on the keyboard
