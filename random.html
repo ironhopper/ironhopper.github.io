@@ -2,11 +2,17 @@
 <head>
 <title>Rondom Card Picking</title>
 </head>
-<body style="padding:.6em">
+<body style="padding:.6em; font-size: x-large;">
 <h1 id=rn></h1><br>
 <input id='myBtn' type="button" value="다음 세트">
 <input id='set' type="button" style="background-color: white;">
-<h3 id='rest'></h3>
+<h3 id='rest1'></h3>
+<h3 id='rest2'></h3>
+<h3 id='rest3'></h3>
+<h3 id='rest4'></h3>
+<hr>
+<h2 id=rnorder style="overflow-wrap: break-word; display: inline;"></h2><br>
+
 <script>
     var rndoc = document.getElementById('rn');
     var emp = [];
@@ -25,22 +31,14 @@
     var j =0;var color = 0;
     function shape(rn1,rn2){
         console.log('rn1:',rn1);
-        if(color == 1 && !(rn1 == 1 || rn1 ==2)){
-            color = 0
-            document.getElementById('rn').style.color = 'black';
-        }
-        else if((rn1 == 1 || rn1 ==2) && color ==0){
-            // rn2 == 13 && rn1 == 3 && color == 0) || 
-            color = 1
-            document.getElementById('rn').style.color = 'red';
-        } 
+       
         return rn2 == 13 ? ''
          : rn1 == 0 ? '\u2660' //spade
          : rn1 == 1 ? '\u2666' // dia 25C6?
          : rn1 == 2 ? '\u2665' // heart
          :'\u2663'; // club
     }
-    document.getElementById('rest').innerText = '\u2660 '+deck4[0]+'\n'+'\u2666 '+deck4[1]+'\n'+'\u2665 '+deck4[2]+'\n'+'\u2663 '+deck4[3]+'\n';
+  
 
     function rnpick(){
         if(j<54){
@@ -56,18 +54,35 @@
                 console.log('done1:',rn1,',',rn2);
                 console.log('done2:',deck4[rn1][rn2]);
 
-                document.getElementById('rn').innerText = deck4[rn1][rn2] + shape(rn1,rn2);
+                document.getElementById('rn').innerHTML = deck4[rn1][rn2] + shape(rn1,rn2);
+                if(color == 1 && !(rn1 == 1 || rn1 ==2)){
+                    color = 0
+                    rntext =  document.getElementById('rn').innerText;
+                    document.getElementById('rn').innerHTML ="<span style='color: black;'>"+rntext+"</span>";
+                }
+                else if((rn1 == 1 || rn1 ==2) && color ==0){
+                    // rn2 == 13 && rn1 == 3 && color == 0) || 
+                    color = 1
+                    // document.getElementById('rn').style.color = 'red';
+                    rntext =  document.getElementById('rn').innerText;
+                    document.getElementById('rn').innerHTML ="<span style='color: red;'>"+rntext+"</span>";
+                } 
+                emp.push( document.getElementById('rn').innerHTML )
                 // console.log('why?1');
                 deck4[rn1][rn2] = '';
                 // console.log('why?2');
                 document.getElementById('set').setAttribute('value',"현재 세트:"+j)
-            }  
+                document.getElementById('rnorder').innerHTML =  String('나왔던 순서:'+'<br>'+emp).replaceAll(',',' ');
+            }
         }else{
             document.getElementById('rn').innerText = '운동 끝!';
             document.getElementById('rn').style.color = 'white';
             document.getElementById('rn').style.backgroundColor = 'black';
         }
-        document.getElementById('rest').innerText = '\u2660 '+deck4[0]+'\n'+'\u2666 '+deck4[1]+'\n'+'\u2665 '+deck4[2]+'\n'+'\u2663 '+deck4[3]+'\n';
+        document.getElementById('rest1').innerHTML = String('\u2660 '+deck4[0]+'\n').replaceAll(',',' ');
+        document.getElementById('rest2').innerHTML = String('\u2666 '+deck4[1]+'\n').replaceAll(',',' ');
+        document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]+'\n').replaceAll(',',' ');
+        document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]+'\n').replaceAll(',',' ');        
         document.getElementById('set').focus();
     }
     // Get the input field
@@ -83,6 +98,14 @@
             document.getElementById("myBtn").click();
         }
     });
+
+    document.getElementById('rest1').innerText = String('\u2660 '+deck4[0]+'\n').replaceAll(',',' ');
+    document.getElementById('rest2').innerText = String('\u2666 '+deck4[1]+'\n').replaceAll(',',' ');
+    document.getElementById('rest2').style.color = 'red';
+    document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]+'\n').replaceAll(',',' ');    
+    document.getElementById('rest3').style.color = 'red';
+    document.getElementById('rest4').innerText = String('\u2663 '+deck4[3]+'\n').replaceAll(',',' ');   
+    document.getElementById('rnorder').innerHTML = '나왔던 순서:'+'<br>'+emp;     
 </script>
 </body>
 </html>
