@@ -1,11 +1,13 @@
 <html>
 <head>
-<title>Rondom Card Picking</title>
+<title>Random Card Picking</title>
 </head>
 <body style="padding:.6em; font-size: x-large;">
-<h1 id=rn></h1><br>
+<h1 id=rn>엔터 누르면 시작</h1><br>
 <input id='myBtn' type="button" value="다음 세트">
 <input id='set' type="button" style="background-color: white;">
+<input id='back' type="button" style="background-color: grey;color:beige" value="이전 세트">
+
 <h3 id='rest1'></h3>
 <h3 id='rest2'></h3>
 <h3 id='rest3'></h3>
@@ -22,63 +24,110 @@
     for(i=0;i<9;i++){
         rd[i] = i+2;
     }
-    var deck = rd.concat(rdch,['']);
-    var deck1 = rd.concat(rdch,['']);
+    var deck = rd.concat(rdch,['\u2800']);
+    var deck1 = rd.concat(rdch,['\u2800']);
     var deckj = rd.concat(rdch,joker);
     var deckj1 = rd.concat(rdch,joker);
     var deck4 = emp.concat([deck],[deck1],[deckj],[deckj1])
     console.log(deck4);
-    var j =0;var color = 0;
+    var j =0;var k=0;var color = false;
     function shape(rn1,rn2){
         console.log('rn1:',rn1);
        
-        return rn2 == 13 ? ''
+        return rn2 == 13 ? '' // 부호 안붙임. 공백문자도 넣는거 아님.
          : rn1 == 0 ? '\u2660' //spade
          : rn1 == 1 ? '\u2666' // dia 25C6?
          : rn1 == 2 ? '\u2665' // heart
          :'\u2663'; // club
     }
   
+    var temp = [];
+    var pop;
+    function rnpick(keyflag){
+        console.log('------------------');
+        console.log('keyflag:'+keyflag);
+        var rn1 = Math.floor(Math.random()*4);
+        var rn2 = Math.floor(Math.random()*14);
+        
+        console.log('('+rn1+','+rn2+')');
+        console.log('['+deck4[rn1][rn2]+']');
+        console.log('count:',j);
 
-    function rnpick(){
-        if(j<54){
-            var rn1 = Math.floor(Math.random()*4);
-            var rn2 = Math.floor(Math.random()*14);
-            console.log('('+rn1+','+rn2+')');
-            console.log('['+deck4[rn1][rn2]+']');
-            console.log('count:',j);
-            if(deck4[rn1][rn2] == ''){
-                rnpick();
-            } else{
-                j++;
-                console.log('done1:',rn1,',',rn2);
-                console.log('done2:',deck4[rn1][rn2]);
-
-                document.getElementById('rn').innerHTML = deck4[rn1][rn2] + shape(rn1,rn2);
-                if(color == 1 && !(rn1 == 1 || rn1 ==2)){
-                    color = 0
-                    rntext =  document.getElementById('rn').innerText;
-                    document.getElementById('rn').innerHTML ="<span style='color: black;'>"+rntext+"</span>";
+        if(keyflag == 13){
+            if(j<54){
+                if(j==0 || j== 53){
+                    // document.getElementById('rn').style.color = 'black';
+                    document.getElementById('rn').style.backgroundColor = 'white';
                 }
-                else if((rn1 == 1 || rn1 ==2) && color ==0){
-                    // rn2 == 13 && rn1 == 3 && color == 0) || 
-                    color = 1
-                    // document.getElementById('rn').style.color = 'red';
-                    rntext =  document.getElementById('rn').innerText;
-                    document.getElementById('rn').innerHTML ="<span style='color: red;'>"+rntext+"</span>";
-                } 
-                emp.push( document.getElementById('rn').innerHTML )
-                // console.log('why?1');
-                deck4[rn1][rn2] = '';
-                // console.log('why?2');
+                if(deck4[rn1][rn2] == '\u2800'){
+                    rnpick(keyflag);
+                } else{
+                    temp.push([rn1,rn2,deck4[rn1][rn2]]);
+                    // console.log('temp?',temp);
+                    j++;
+                    console.log('done1:',rn1,',',rn2);
+                    console.log('done2:',deck4[rn1][rn2]);
+
+                    document.getElementById('rn').innerHTML = deck4[rn1][rn2] + shape(rn1,rn2); // 중요...
+
+                    if((!(rn1 == 1 || rn1 ==2))){
+                        console.log('if red');
+                        color = false
+                        rntext =  document.getElementById('rn').innerText;
+                        document.getElementById('rn').innerHTML ="<span style='color: black;'>"+rntext+"</span>";
+                        // document.getElementById('rn').style.color = 'black';
+                    }
+                    // ((j==1||j== 54) ||color == true) &&
+                    // ((j==1||j== 54) ||color == false) &&
+                    else if((rn1 == 1 || rn1 ==2)){
+                        console.log('if black');
+                        // rn2 == 13 && rn1 == 3 && color == 0) || 
+                        color = true
+                        // document.getElementById('rn').style.color = 'red';
+                        rntext =  document.getElementById('rn').innerText;
+                        document.getElementById('rn').innerHTML ="<span style='color: red;'>"+rntext+"</span>";
+                        // document.getElementById('rn').style.color = 'red';
+
+                    } 
+                    emp.push( document.getElementById('rn').innerHTML )
+                    // console.log('why?1');
+                    deck4[rn1][rn2] = '\u2800';
+                    // console.log('why?2');
+                    document.getElementById('set').setAttribute('value',"현재 세트:"+j)
+                    document.getElementById('rnorder').innerHTML =  String('나왔던 순서:'+'<br>'+emp).replaceAll(',',' ');
+                }
+            }else{
+                document.getElementById('rn').innerText = '운동 끝!';
+                document.getElementById('rn').style.color = 'white';
+                document.getElementById('rn').style.backgroundColor = 'black';
+            }
+        }
+
+        if(keyflag == 82){
+            console.log('82');
+            if(j>0){
+                j--;
+                deck4[temp[j][0]][temp[j][1]] = temp[j][2];
+                pop = emp.pop();
+                // console.log('temp1:',temp[j][0]);
+                pop = temp.pop();
+                // console.log('temp2:',temp[j][0]);
+                
+                console.log('pop:',pop);
+                // console.log('temp:',temp[j-1][0],temp[j-1][1],temp[j-1][2]); 
+
+
                 document.getElementById('set').setAttribute('value',"현재 세트:"+j)
                 document.getElementById('rnorder').innerHTML =  String('나왔던 순서:'+'<br>'+emp).replaceAll(',',' ');
+            }else{
+                document.getElementById('rn').innerText = '처음';
+                document.getElementById('rn').style.color = 'white';
+                document.getElementById('rn').style.backgroundColor = 'blue';
+                // color = !color // 대박사건...
+                // console.log('color:',color);
             }
-        }else{
-            document.getElementById('rn').innerText = '운동 끝!';
-            document.getElementById('rn').style.color = 'white';
-            document.getElementById('rn').style.backgroundColor = 'black';
         }
+        
         document.getElementById('rest1').innerHTML = String('\u2660 '+deck4[0]+'\n').replaceAll(',',' ');
         document.getElementById('rest2').innerHTML = String('\u2666 '+deck4[1]+'\n').replaceAll(',',' ');
         document.getElementById('rest3').innerText = String('\u2665 '+deck4[2]+'\n').replaceAll(',',' ');
@@ -87,17 +136,37 @@
     }
     // Get the input field
     // var input = document.getElementById("myInput");
-    var btn = document.getElementById('myBtn').addEventListener("click",rnpick)
+    var keyflag;
+    var btn1 = document.getElementById('myBtn').addEventListener("touchstart",(e)=>{
+        // e.preventDefault();
+        // e.error();
+        keyflag = 13;
+        rnpick(keyflag);
+    })
+    var btn2 = document.getElementById('back').addEventListener("touchstart",(e)=>{
+        // e.preventDefault();
+        // e.error();
+        keyflag = 82;
+        rnpick(keyflag);
+    })
     // Execute a function when the user releases a key on the keyboard
     window.addEventListener("keyup", function(event) {
     // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13) { // enter
+            // keyflag = 13;
+            // var btn = document.getElementById('myBtn').addEventListener("click",rnpick(keyflag))
             // Cancel the default action, if needed
             event.preventDefault();
             // Trigger the button element with a click
-            document.getElementById("myBtn").click();
+            document.getElementById("myBtn").click(rnpick(event.keyCode));
+        }
+        if(event.keyCode == 82){ // 'r'
+            keyflag = 82;
+            document.getElementById("myBtn").click(rnpick(keyflag));
+
         }
     });
+
 
     document.getElementById('rest1').innerText = String('\u2660 '+deck4[0]+'\n').replaceAll(',',' ');
     document.getElementById('rest2').innerText = String('\u2666 '+deck4[1]+'\n').replaceAll(',',' ');
