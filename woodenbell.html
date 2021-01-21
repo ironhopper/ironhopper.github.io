@@ -28,13 +28,13 @@ function sound(src) {
     this.play = function(){
         this.sound.play();
     }
-    this.stop = function(){
-        this.sound.stop();
+    this.load = function(){
+        this.sound.load();
     }    
 }
 
 function moveup() {
-    mySound.stop();
+    mySound.load();
     mySound.play();
 }
 
