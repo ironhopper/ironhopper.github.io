@@ -34,6 +34,7 @@ function sound(src) {
 }
 
 function moveup() {
+    mySound.stop();
     mySound.play();
 }
 
@@ -41,7 +42,10 @@ function moveup() {
 </script>
 <div style="text-align:center;width:480px;">
 <!--     <input type="image" src="http://example.com/path/to/image.png" /> -->
-  <button style="background: url(woodenbell.jpg)" onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
+  <button style="background: url(woodenbell.jpg)" onmousedown="moveup()" ontouchstart="moveup()"></button><br><br>
+    <input onmousedown="moveup()" ontouchstart="moveup() type="image" id="image" alt="Login"
+       src="woodenbell.jpg">
+<!-- /media/examples/login-button.png -->
 <!-- http://moranbulkyo.cafe24.com/web/product/big/moranbulkyo_7308.jpg -->
 <!--     https://lh3.googleusercontent.com/proxy/vWFH_d0N-ECbFOG7Nvn0NDFVQKEA9Guv3NcIsuysAmmDSMr5uYVDjh0DNhuld0NS2Ov-Z7AlDZq7EtpBNcgkbMYh4BXAWSn0gEOQHf2WVJi_VnsCD4ZwwZY3FHa_LqYRfwIpk3cEQthOAMbUcFAVAeBUe7Rm6fvVQpyCNku9rj6PJGUaglINRVJV6w -->
     </div>
