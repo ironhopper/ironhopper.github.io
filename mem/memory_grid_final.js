@@ -293,7 +293,7 @@
         var doneMsg, rateCorrect;
         var tempcor;
         if (this.fillNum === this.guesses.used) {
-            rateCorrect = this.guesses.correct + "/" + this.guesses.used;
+            rateCorrect = this.guesses.correct + "/" + bgetl();
             this.statusBar.innerText = rateCorrect + " correct";
             if (this.guesses.correct === this.fillNum) {
                 doneMsg = "Perfect Game!";
