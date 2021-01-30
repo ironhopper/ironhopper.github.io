@@ -141,7 +141,8 @@
         };
         this.guesses = {
             used: 0,
-            correct: 0
+            correct: 0,
+            wo: 0
         };
         this.finished = false;
         this.gridBox = document.getElementById("grid-box");
@@ -293,7 +294,7 @@
         var doneMsg, rateCorrect;
         var tempcor;
         if (this.fillNum === this.guesses.used) {
-            rateCorrect = this.guesses.correct + "/" + bgetl();
+            rateCorrect = (this.guesses.correct-this.guesses.wo) + "/" + bgetl();
             this.statusBar.innerText = rateCorrect + " correct";
             if (this.guesses.correct === this.fillNum) {
                 doneMsg = "Perfect Game!";
@@ -418,6 +419,7 @@
                 this.guesses.correct++;
                 if(!(JSON.stringify(c1) == JSON.stringify(c2))){
                     color = bgetc().wo;
+                    this.guesses.wo++;
                 }
             }
 
