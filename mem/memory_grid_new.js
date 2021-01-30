@@ -19,14 +19,16 @@
             miss: "#FF4A48",
             hit: "#84FF77",
             filled: "#CEE7FF",
-            hidden: "#8B93C0"
+            hidden: "#8B93C0",
+            fin: "#ee82ee"
         },
 
-        lev : 7,
+        lev : 1,
         height : 6,
         width : 5,
         order : [],
         choose : [],
+        wrong: [],
         filled: {},
         xx: 42,
         getX: function() {
@@ -50,6 +52,15 @@
         getch: function(){
             return this.choose;
         },
+        getlev : function(){
+            return this.lev;
+        },
+        getwrong: function(){
+            return this.wrong;
+        },
+        setwrong: function(w){
+            this.wrong = w;
+        },
         
         setOrder: function(ord){
             this.order = ord;
@@ -62,8 +73,17 @@
         },
         setch : function(ch){
             this.choose = ch;
+        },
+        setlev : function(v){
+            this.lev = v;
         }
       };
+
+    const mgwrong = module.getwrong;
+    const mswrong = module.setwrong;
+    const bgwrong = mgwrong.bind(module);
+    const bswrong = mswrong.bind(module);
+
     const mgetel = module.getel;
     const bgetel = mgetel.bind(module);
 
@@ -98,6 +118,11 @@
 
     const mgetch= module.getch;
     const bgetch = mgetch.bind(module);
+
+    const msetl = module.setlev;
+    const bsetl = msetl.bind(module);
+    const mgetl = module.getlev;
+    const bgetl = mgetl.bind(module);
     
     function Grid() {
         this.height = 6;
@@ -111,7 +136,8 @@
             hit: "#84FF77",
             filled: "#CEE7FF",
             hidden: "#8B93C0",
-            wo: "#ffff00"
+            wo: "#ffff00",
+            fin: "#ee82ee"
         };
         this.guesses = {
             used: 0,
@@ -173,12 +199,12 @@
 
             tempel.push(row);
 
-            console.log('\n\ntempel');
-            console.table(tempel);
+            // console.log('\n\ntempel');
+            // console.table(tempel);
             bsetel(tempel);
 
-            console.log('\n\nbgetel()');
-            console.table(bgetel());
+            // console.log('\n\nbgetel()');
+            // console.table(bgetel());
             this.table.appendChild(rowElement);
         }
     };
@@ -199,7 +225,7 @@
 
             var intervalID = setInterval(function () {
                 // Your logic here
-                console.log("test");
+                // console.log("test");
                 // setHiddenBoard();
                 bgetel().forEach(function(row) {
                     row.forEach(function(cell) {
@@ -230,8 +256,8 @@
                         tempord.push([random1,random2])
                         bsetord(tempord);
                         
-                        console.log('tempel????????');
-                        console.table(tempel);
+                        // console.log('tempel????????');
+                        // console.table(tempel);
 
                         // Change background color as we populate
                         bgetel()[random1][random2].style.backgroundColor =
@@ -244,15 +270,18 @@
                 }
                 console.log(x);
                 console.log(numAssigned);
+                // this.statusBar.innerText = "Memorize "+numAssigned;
+
                 if (++x === 7 || numAssigned > 7) {
                     window.clearInterval(intervalID);
+                    bsetl(numAssigned);
                 }
             }, 1000);
 
         this.statusBar = this.gridBox.appendChild(
             createNewElement("div", "status", "remaining")
         );
-        this.statusBar.innerText = "Memorize";
+        this.statusBar.innerText = "Memorize ";
     };
     Grid.prototype.clearBoard = function() {
         while (this.gridBox.firstChild) {
@@ -262,6 +291,7 @@
 
     Grid.prototype.checkForWinner = function() {
         var doneMsg, rateCorrect;
+        var tempcor;
         if (this.fillNum === this.guesses.used) {
             rateCorrect = this.guesses.correct + "/" + this.guesses.used;
             this.statusBar.innerText = rateCorrect + " correct";
@@ -272,7 +302,81 @@
             }
             // Add game completion status element when finished
             
-         
+            console.log("fin?");
+            console.log(bgetord().length);
+            console.log(tempcor);
+            let tempord = bgetord();
+            console.log(tempord);
+            console.log(this.guesses.correct);
+            let temparr = [];
+
+            let difference = bgetord().filter(d => !bgetch().includes(d));
+            console.table(difference);
+
+            for(let x = 0; x < bgetord().length; x++){
+                //Iterate through all elements in second array    
+                for(let y = 0; y < bgetch().length; y++){
+            
+                  /*This causes us to compare all elements 
+                     in first array to each element in second array
+                    Since md1[x] stays fixed while md2[y] iterates through second array.
+                     We compare the first two indexes of each array in conditional
+                  */
+                  if((JSON.stringify(bgetord()[x]) == JSON.stringify(bgetch()[y]) )){
+                    
+                    // alert("match found");
+                    // alert("Array 1 element with index " + x + " matches Array 2 element with index " + y);
+                    temparr.push(x);
+                    // x--;
+
+                  }
+                //   else{
+                //       continue;
+                //   }
+
+
+                }
+            }
+            let sparr = bgetord();
+            console.log(temparr);
+
+            while(temparr.length) {
+                sparr.splice(temparr.pop(), 1);
+            }
+
+            // temparr.sort(function(a,b){ return b - a; });
+
+            // for (let k = temparr.length -1; k >= 0; k--)
+            //     sparr.splice(temparr[k],1);
+
+            console.log(temparr);
+
+            for(let k=0;k<sparr.length;k++){
+                // sparr = sparr.splice(x, 1);
+
+                console.log("fin_sparr:"+sparr[k]);
+                bgetel()[sparr[k][0]][sparr[k][1]].style.backgroundColor = bgetc().fin;
+            }
+
+            // for(let k=0;k<difference.length;k++){
+            //     console.log("fin??:"+difference[k]);
+
+            //     bgetel()[difference[k][0]][difference[k][1]].style.backgroundColor = bgetc().fin;
+            // }
+
+            // for(tempcor = this.guesses.correct;bgetord().length > tempcor;tempcor++){
+            //     // console.log("fin??");
+            //     // console.log(tempcor);
+            //     // console.log(tempord);
+            //     console.log("fin???:"+tempord[tempcor]);
+
+            //     bgetel()[tempord[tempcor][0]][tempord[tempcor][1]].style.backgroundColor = bgetc().fin;
+            // }
+            
+            // bgetel().forEach(function(row) {
+            //     row[]
+            // });
+
 
             this.finishBar = createNewElement("div", "status", "completion");
             this.finishBar.innerText = doneMsg;
@@ -283,6 +387,7 @@
                 this.clearBoard();
                 var newGrid = new Grid();
                 newGrid.playGame();
+                location.reload();
             }.bind(this));
         }
     };
@@ -292,8 +397,6 @@
             tempch.push([i1,i2]);
             bsetch(tempch);
 
-          
-            
             // console.log(c1 === c2);
             // console.log(JSON.stringify(c1) == JSON.stringify(c2));
             console.log(this.guesses.used);
@@ -318,11 +421,12 @@
                 }
             }
 
+
             console.log("e: "+event+" / color: "+color);
             this.empty[i1][i2] = true;
             this.statusBar.innerText = (this.fillNum -
                                         this.guesses.used) +
-                                        " Guesses left";
+                                        " Guesses left(tot:"+this.guesses.correct+"/"+bgetl()+")";
             
             changeBackgroundColor(event, color);
             this.checkForWinner();
@@ -331,7 +435,7 @@
     Grid.prototype.setHiddenBoard = function() {
         var hideAfterMs = 8000;
         setTimeout(function() {
-            this.statusBar.innerText = this.fillNum + " Guesses left";
+            this.statusBar.innerText = this.fillNum + " Guesses left(tot:"+this.guesses.correct+"/"+bgetl()+")";
             // Configure all cells on the grid, hiding those populated
             bgetel().forEach(function(row, i1) {
                 row.forEach(function(cell, i2) {
