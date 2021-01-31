@@ -292,9 +292,9 @@
 
     Grid.prototype.checkForWinner = function() {
         var doneMsg, rateCorrect;
-        var tempcor;
-        if (this.fillNum === this.guesses.used) {
-            rateCorrect = (this.guesses.correct-this.guesses.wo) + "/" + bgetl();
+        var tempcor = bgetl();
+        if (this.fillNum === this.guesses.used || this.guesses.correct === tempcor) {
+            rateCorrect = (this.guesses.correct-this.guesses.wo) + "/" + tempcor;
             this.statusBar.innerText = rateCorrect + " correct";
             if (this.guesses.correct === this.fillNum) {
                 doneMsg = "Perfect Game!";
