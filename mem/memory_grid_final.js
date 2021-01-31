@@ -296,10 +296,15 @@
         if (this.fillNum === this.guesses.used || this.guesses.correct === tempcor) {
             rateCorrect = (this.guesses.correct-this.guesses.wo) + "/" + tempcor;
             this.statusBar.innerText = rateCorrect + " correct";
-            if (this.guesses.correct === this.fillNum) {
-                doneMsg = "Perfect Game!";
-            } else {
-                doneMsg = "Game Over";
+            if (this.guesses.correct === this.fillNum || (this.guesses.correct-this.guesses.wo) === tempcor) {
+                doneMsg = "Perfect Game!!";
+            } else if(this.guesses.correct === tempcor){
+                doneMsg = "Good job :) You can do it!";
+            } else if (this.guesses.correct === (tempcor-1)){
+                doneMsg = "Try once again. Just one more.";
+            }
+            else {
+                doneMsg = "You'll do better next time.";
             }
             // Add game completion status element when finished
             
