@@ -169,10 +169,10 @@
         );
         this.startButton.innerText = "Start";
         
-        this.reload = this.gridBox.appendChild(
-            createNewElement("button", "status", "start-new")
-        );
-        this.reload.innerText = "reload";
+        // this.reload = this.gridBox.appendChild(
+        //     createNewElement("button", "status", "start-new")
+        // );
+        // this.reload.innerText = "reload";
 
         this.table = this.gridBox.appendChild(
             createNewElement("table", false, "grid")
@@ -283,6 +283,16 @@
             createNewElement("div", "status", "remaining")
         );
         this.statusBar.innerText = "Memorize ";
+        // var elmnt = document.getElementById("content");
+        this.statusBar.scrollIntoView();
+        // this.startButton.innerText = "New Game";
+        this.startButton.innerText = "Reload";
+        this.startButton.addEventListener("click", function() {
+            // this.clearBoard();
+            // var newGrid = new Grid();
+            // newGrid.playGame();
+            location.reload();
+        }.bind(this));
     };
     Grid.prototype.clearBoard = function() {
         while (this.gridBox.firstChild) {
@@ -382,19 +392,12 @@
             // bgetel().forEach(function(row) {
             //     row[]
             // });
-
-
+            
             this.finishBar = createNewElement("div", "status", "completion");
             this.finishBar.innerText = doneMsg;
             this.gridBox.insertBefore(this.finishBar, this.statusBar);
             this.finished = true;
-            this.startButton.innerText = "New Game";
-            this.startButton.addEventListener("click", function() {
-                this.clearBoard();
-                var newGrid = new Grid();
-                newGrid.playGame();
-                location.reload();
-            }.bind(this));
+            this.finishBar.scrollIntoView();
         }
     };
     Grid.prototype.cellClickHandler = function(event, correct, color, i1, i2) {
@@ -471,9 +474,9 @@
             }
         }.bind(this));
 
-        this.reload.addEventListener("click", function() {
-            location.reload();
-        }.bind(this));
+        // this.reload.addEventListener("click", function() {
+        //     location.reload();
+        // }.bind(this));
     };
     var grid = new Grid();
     grid.playGame();
