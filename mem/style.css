@@ -30,8 +30,8 @@ table#grid {
 }
 
 td.cell {
-    height: 62px;
-    width: 62px;
+    height: 7em;
+    width: 7em;
     background-color: #8B93C0;
 }
 
