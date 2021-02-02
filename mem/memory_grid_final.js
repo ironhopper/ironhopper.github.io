@@ -24,7 +24,7 @@
         },
 
         lev : 1,
-        height : 6,
+        height : 5,
         width : 5,
         order : [],
         choose : [],
@@ -125,7 +125,7 @@
     const bgetl = mgetl.bind(module);
     
     function Grid() {
-        this.height = 6;
+        this.height = 5;
         this.width = 5;
         this.fillNum = 0;
         this.filled = {};
