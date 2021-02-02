@@ -1,5 +1,6 @@
 (function() {
     "use strict";
+    // document.getElementById("header1").scrollIntoView(true);
 
     function createNewElement(tagName, className, idName) {
         var newElement = document.createElement(tagName);
@@ -58,6 +59,12 @@
         getwrong: function(){
             return this.wrong;
         },
+        getheight: function(){
+            return this.height;
+        },
+        getwidth: function(){
+            return this.width;
+        },
         setwrong: function(w){
             this.wrong = w;
         },
@@ -83,7 +90,12 @@
     const mswrong = module.setwrong;
     const bgwrong = mgwrong.bind(module);
     const bswrong = mswrong.bind(module);
-
+    
+    const mgh = module.getheight;
+    const mgw = module.getwidth;
+    const bgh = mgh.bind(module);
+    const bgw = mgw.bind(module);    
+    
     const mgetel = module.getel;
     const bgetel = mgetel.bind(module);
 
@@ -150,6 +162,7 @@
         this.startButton = null;
         this.statusBar = null;
         this.finishBar = null;
+        this.tooltiptext = null;
         this.started = false;
         this.reload = null;
 
@@ -168,11 +181,11 @@
             createNewElement("button", "status", "start-new")
         );
         this.startButton.innerText = "Start";
-        
         // this.reload = this.gridBox.appendChild(
         //     createNewElement("button", "status", "start-new")
         // );
         // this.reload.innerText = "reload";
+        this.startButton.style.cursor = 'pointer';
 
         this.table = this.gridBox.appendChild(
             createNewElement("table", false, "grid")
@@ -234,7 +247,7 @@
                     })
                 });
 
-                random1 = Math.floor(Math.random() * 6);
+                random1 = Math.floor(Math.random() * bgh());
                 console.log(
                     "ran"+random1
                 );
@@ -246,8 +259,8 @@
                 }
 
                 // Populate random cell keys for each random row
-                if (Object.keys(bgetfill()[random1]).length < 5) {
-                    random2 = Math.floor(Math.random() * 5);
+                if (Object.keys(bgetfill()[random1]).length < bgw()) {
+                    random2 = Math.floor(Math.random() * bgw());
                     if (!(random2 in bgetfill()[random1])) {
                         // Don't need to store a value here, the purpose of
                         // this object is to do key lookups for cell validation
@@ -394,10 +407,22 @@
             // });
             
             this.finishBar = createNewElement("div", "status", "completion");
+            this.finishBar.classList.add("tooltip");
             this.finishBar.innerText = doneMsg;
+
+            this.tooltiptext = this.finishBar.appendChild(
+                createNewElement("div","tooltiptext","tootiptext")
+            );
+            this.tooltiptext.innerText = "retry";
+
+            
             this.gridBox.insertBefore(this.finishBar, this.statusBar);
             this.finished = true;
+            this.finishBar.style.cursor = 'pointer';
             this.finishBar.scrollIntoView();
+            this.finishBar.addEventListener("click", function() {
+                location.reload();
+            }.bind(this));
         }
     };
     Grid.prototype.cellClickHandler = function(event, correct, color, i1, i2) {
