@@ -6,7 +6,7 @@ h1 {
     text-align: center;
     font-size: 3em;
     margin-top: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 6.5px;
 }
 
 #game, #grid-box {
@@ -26,12 +26,11 @@ h1 {
 table#grid {
     background-color: black; 
     border-spacing: 3px;
-    
 }
 
 td.cell {
-    height: 7em;
-    width: 7em;
+    height: 10.8em;
+    width: 10.8em;
     background-color: #8B93C0;
 }
 
@@ -51,10 +50,10 @@ td.cell {
 }
 
 #remaining, #completion {
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 #start-new {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
